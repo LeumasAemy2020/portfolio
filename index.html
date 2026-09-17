@@ -424,20 +424,14 @@
   /* ---------- REEL / VIDEO ---------- */
   .reel-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
   @media(max-width:780px){ .reel-grid{grid-template-columns:1fr;} }
-  .reel-slot{
-    aspect-ratio:16/10; border:1.5px dashed var(--line); border-radius:6px;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
-    color:var(--ink-soft); background:var(--paper-card);
+  .reel-item{ display:flex; flex-direction:column; gap:10px; }
+  .reel-frame{
+    aspect-ratio:16/9; border:1px solid var(--line); border-radius:6px;
+    overflow:hidden; background:#000; box-shadow:var(--shadow);
   }
-  .reel-slot .play{
-    width:38px; height:38px; border-radius:50%; border:1.5px solid var(--line);
-    display:flex; align-items:center; justify-content:center;
-  }
-  .reel-slot .play:after{
-    content:""; border-left:9px solid var(--ink-soft); border-top:6px solid transparent;
-    border-bottom:6px solid transparent; margin-left:3px;
-  }
-  .reel-slot span{ font-size:12px; font-family:"IBM Plex Mono",monospace; }
+  .reel-frame iframe{ width:100%; height:100%; display:block; border:0; }
+  .reel-cap{ font-size:12.5px; color:var(--ink-soft); text-align:center; }
+  .reel-cap b{ color:var(--ink); font-weight:600; }
 
   /* ---------- CONTACT / FOOTER ---------- */
   .contact-wrap{ display:flex; justify-content:space-between; align-items:flex-end; gap:30px; flex-wrap:wrap; }
@@ -477,14 +471,13 @@
     .reveal{ opacity:1; transform:none; transition:none; }
   }
 
-  .cap, .metric, .hstat, .score, .reel-slot{ transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .cap, .metric, .hstat, .score, .reel-frame{ transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
   .cap:hover{ transform:translateY(-4px); box-shadow:var(--shadow); z-index:2; position:relative; }
   .metric:hover{ transform:translateY(-3px); box-shadow:var(--shadow); z-index:2; position:relative; }
   .hstat{ transition:transform .2s ease; }
   .score{ cursor:default; }
   .score:hover{ transform:translateY(-3px) scale(1.04); box-shadow:var(--shadow); }
-  .reel-slot{ cursor:default; }
-  .reel-slot:hover{ transform:translateY(-3px); border-color:var(--accent); box-shadow:var(--shadow); }
+  .reel-frame:hover{ transform:translateY(-3px); border-color:var(--accent); box-shadow:var(--shadow); }
   .chip.lg{ transition:border-color .2s ease, color .2s ease, transform .2s ease; }
   .chip.lg:hover{ border-color:var(--accent); color:var(--accent); transform:translateY(-1px); }
   .xp-item{ transition:border-color .2s ease, padding-left .2s ease; }
@@ -619,6 +612,19 @@
           <span class="chip lg">Google Analytics</span>
           <span class="chip lg">Google Rich Results Test</span>
           <span class="chip lg">PageSpeed Insights</span>
+        </div>
+      </div>
+      <div class="toolkit-group">
+        <div class="tk-label">Performance &amp; Speed Tools</div>
+        <div class="tk-chips">
+          <span class="chip lg">GTmetrix</span>
+          <span class="chip lg">Pingdom Speed Test</span>
+          <span class="chip lg">WebPageTest</span>
+          <span class="chip lg">DebugBear</span>
+          <span class="chip lg">SpeedCurve</span>
+          <span class="chip lg">WP Rocket</span>
+          <span class="chip lg">WP-Optimize</span>
+          <span class="chip lg">Cloudinary</span>
         </div>
       </div>
     </div>
@@ -872,11 +878,20 @@
       <h2>Video walkthroughs</h2>
       <span class="sec-rule"></span>
     </div>
-    <p class="sec-intro">Screen recordings walking through the Search Console gains, the Cloudflare incident response, and the WordPress/Rank Math setup — being added shortly.</p>
+    <p class="sec-intro">Screen recordings walking through the Search Console gains, the Cloudflare incident response, and the WordPress/Rank Math setup.</p>
     <div class="reel-grid">
-      <div class="reel-slot"><div class="play"></div><span>SEARCH &amp; VISIBILITY — SOON</span></div>
-      <div class="reel-slot"><div class="play"></div><span>INCIDENT RESPONSE — SOON</span></div>
-      <div class="reel-slot"><div class="play"></div><span>SITE WALKTHROUGH — SOON</span></div>
+      <div class="reel-item">
+        <div class="reel-frame"><iframe src="https://www.youtube.com/embed/FZOXCr1_-fw" title="Search Visibility & SEO Growth Walkthrough" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+        <div class="reel-cap"><b>Search &amp; Visibility</b> — metadata rewrites &amp; the Search Console gains</div>
+      </div>
+      <div class="reel-item">
+        <div class="reel-frame"><iframe src="https://www.youtube.com/embed/Xr3a2vjQdSs" title="Site Incident Response: Bot Attack & Cloudflare Defense" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+        <div class="reel-cap"><b>Incident Response</b> — the bot attack &amp; the Cloudflare defense</div>
+      </div>
+      <div class="reel-item">
+        <div class="reel-frame"><iframe src="https://www.youtube.com/embed/Oh1exC-5RRk" title="WordPress & Rank Math SEO Setup Walkthrough" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+        <div class="reel-cap"><b>Site Walkthrough</b> — the WordPress &amp; Rank Math setup</div>
+      </div>
     </div>
   </div>
 </section>
@@ -959,7 +974,7 @@
   // Reveal-on-scroll
   (function(){
     var targets = [].slice.call(document.querySelectorAll(
-      '.sec-head, .cap, .metric, .xp-item, .log-entry, .quote-grid > *, .reel-slot, .contact-wrap, .callout, .root-cause, .outcome, .toolkit-group'
+      '.sec-head, .cap, .metric, .xp-item, .log-entry, .quote-grid > *, .reel-item, .contact-wrap, .callout, .root-cause, .outcome, .toolkit-group'
     ));
     targets.forEach(function(el){ el.classList.add('reveal'); });
     if(REDUCE || !window.IntersectionObserver){
